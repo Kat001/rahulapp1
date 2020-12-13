@@ -15,7 +15,8 @@ SECRET_KEY = '-zol)mp3x5*f^yj2g8o(m)lrdwmjglewkkx8m#xxqv!3!uzr8f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS =  ['rahulapp1.herokuapp.com','127.0.0.1','*']
+ALLOWED_HOSTS =  ['rahulapp1.herokuapp.com','finderinternational.world','www.finderinternational.world']
+
 
 
 # Application definition
