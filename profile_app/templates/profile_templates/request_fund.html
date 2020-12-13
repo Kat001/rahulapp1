@@ -1,0 +1,201 @@
+{% extends "profile_templates/base.html" %}
+
+
+
+  {% block styles %}
+  {% load static %}
+
+  <style>
+* {
+box-sizing: border-box;
+}
+
+input[type=text],input[type=Number],input[type=Password]{
+width: 100%;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 4px;
+resize: vertical;
+}
+
+label {
+padding: 12px 12px 12px 0;
+display: inline-block;
+}
+
+input[type=submit] {
+background-color: #4CAF50;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+float: right;
+margin-top: 20px;
+}
+
+input[type=submit]:hover {
+background-color: #45a049;
+}
+
+input[type=submit]:onfocus {
+  this.value='',
+}
+
+.container {
+border-radius: 5px;
+background-color: #f2f2f2;
+padding: 20px;
+}
+
+.col-25 {
+float: left;
+width: 25%;
+margin-top: 6px;
+}
+
+.col-75 {
+float: left;
+width: 75%;
+margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+.col-25, .col-75, input[type=submit] {
+  width: 100%;
+  margin-top: 0;
+}
+}
+
+@media screen and (max-width: 600px) {
+input[type=submit] {
+  width: 100%;
+  margin-top: 30px;
+}
+}
+</style>
+
+      <link rel="stylesheet" type="text/css" href="{% static 'profile_static/css/fund.css' %}">
+
+
+  {% endblock styles %}
+
+
+
+   {% block content %}
+   <center><h2 class="admin-heading" style='background-color:#5D6D7E;color:white;border-radius:20px;margin-top:10px;'>Request Fund:</h2><br></center>
+
+   <div class="container">
+ <form enctype='multipart/form-data' method="POST">
+   {% csrf_token %}
+   <div class="row">
+     <div class="col-25">
+       <label for="fname">{{form.user_name.label}}:</label>
+     </div>
+     <div class="col-75">
+       {{form.user_name}}
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-25">
+       <label for="lname">{{form.date.label}}:</label>
+     </div>
+     <div class="col-75">
+       {{form.date}}
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-25">
+       <label for="country">{{form.fund.label}}:</label>
+     </div>
+     <div class="col-75">
+       {{form.fund}}
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-25">
+       <label for="subject">{{form.transection_no.label}}:</label>
+     </div>
+     <div class="col-75">
+       {{form.transection_no}}
+      </div>
+   </div>
+   <div class="row">
+     <div class="col-25">
+       <label for="subject">{{form.proof.label}}:</label>
+     </div>
+     <div class="col-75">
+       {{form.proof}}
+      </div>
+   </div>
+   <div class="row">
+     <div class="col-25">
+       <label for="subject">Transection password:</label>
+     </div>
+     <div class="col-75">
+       <input type="password"  value="" name='txn_pass' onfocus="this.value=''" required>
+      </div>
+   </div>
+   <div class="row">
+     <input type="submit" value="Submit">
+   </div>
+ </form>
+</div>
+
+      <div id="content" class="p-4 p-md-5 pt-5" style="overflow-x:auto;">
+         <table id="customers">
+            <tr>
+               <th>Sr No.</th>
+               <th>Username</th>
+               <th>Amount</th>
+               <th>Date</th>
+               <th>Transaction Number</th>
+               <th>Proof</th>
+               <th>Status</th>
+
+
+            {% for userr in rqs%}
+
+               {% if userr.user_name == user.username %}
+            <tr>
+               <td>{{forloop.counter}}</td>
+               <td>{{userr.user_name}}</td>
+               <td>{{userr.fund}}</td>
+               <td>{{userr.date}}</td>
+               <td>{{userr.transection_no}}</td>
+
+
+              <td>
+              <a href="{{media_url}}/media/{{userr.proof}}"><img src="{{userr.proof.url}}" id="myImg" alt="HTML tutorial" style="width:42px;height:42px;"></a>
+              </td>
+
+
+               {% if userr.status == 'Approved' %}
+   					<td><div class="p-3 mb-2 bg-success text-white">{{userr.status}}</div></td>
+   				{% elif userr.status == 'Pending' %}
+                  <td><div class="p-3 mb-2 bg-warning text-dark">{{userr.status}}</div></td>
+                {% elif userr.status == 'Canceled' %}
+                  <td><div class="p-3 mb-2 bg-danger text-white">{{userr.status}}</div></td>
+   				{% endif %}
+            </tr>
+
+               {% endif %}
+
+            {% endfor %}
+         </table>
+      </div>
+
+      </div>
+
+
+
+
+   {% endblock content %}

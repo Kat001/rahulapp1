@@ -1,0 +1,203 @@
+{% extends "profile_templates/base.html" %}
+
+
+
+{% block styles %}
+{% load static %}
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  input[type=text],input[type=Number],input[type=Password]{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 20px;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    input[type=submit] {
+      width: 100%;
+      margin-top: 30px;
+    }
+  }
+
+
+
+  table {
+    width: 50%;
+    counter-reset: row-num-1;
+  }
+  table tr {
+    counter-increment: row-num;
+  }
+  table tr td:first-child::before {
+    content: counter(row-num) ". ";
+  }
+  #filterform input[type=text] {
+    width: 40%;
+    height: 40px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-left:50px;
+    margin-top:30px;
+  }
+  #filterform input[type=submit] {
+    width: 20px;
+    height: 30px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-top:5px;
+
+  }
+
+</style>
+
+<link rel="stylesheet" type="text/css" href="{% static 'profile_static/css/fund.css' %}">
+
+
+{% endblock styles %}
+
+{% block content %}
+<center><h2 class="admin-heading" style='background-color:#5D6D7E;color:white;border-radius:20px;margin-top:10px;'>Level Team:</h2><br></center>
+
+
+<div class="btn-group" role="group" aria-label="Basic example" style='margin-left:50px;'>
+
+  <button type="button"  class="btn btn-secondary" onclick="location.href='{% url 'level_team' %}'">1st Level</button>
+
+  <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'level_team2' %}'">2nd Level</button>
+
+  <button type="button" style='color:black;' class="btn btn-secondary" onclick="location.href='{% url 'level_team3' %}'">3rd Level</button>
+
+  <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'level_team4' %}'">4th Level</button>
+
+</div> <div style="height:5px;"></div>
+<div class="btn-group" role="group" aria-label="Basic example" style='margin-left:50px;'>
+
+  <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'level_team5' %}'">5th Level</button>
+  <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'level_team6' %}'">6th Level</button>
+  <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'level_team7' %}'">7th Level</button>
+</div>
+
+<form  method="get" id="filterform">
+  {{myfilter.form.username}}
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+
+<div id="content" class="p-4 p-md-5 pt-5" style="overflow-x:auto;">
+
+  <table id="customers">
+    <tr>
+      <th>Sr No.</th>
+      <th>Username</th>
+      <th>Member Name</th>
+      <th>Level</th>
+
+      <th>Registration date</th>
+
+      <th>Active</th>
+      <th>Activation date</th>
+
+
+
+      {% for userr in objs %}
+
+
+      <tr>
+        <td></td>
+        <td>{{userr.username}}</td>
+        <td>{{userr.first_name}} {{userr.last_name}}</td>
+        <td>3</td>
+        <td>{{userr.date_joined}}</td>
+
+        {% if userr.is_active1 == True %}
+        <td class="field-is_active1"><img src="/static/admin/img/icon-yes.svg" alt="True"></td>
+        <td>{{userr.date_active}}</td>
+        {% else %}
+        <td class="field-is_active1"><img src="/static/admin/img/icon-no.svg" alt="False"></td>
+        <td>-</td>
+        {% endif %}
+      </tr>
+
+
+
+      {% endfor %}
+
+
+
+
+
+
+
+    </table>
+  </div>
+
+
+
+
+
+
+  {% endblock content %}

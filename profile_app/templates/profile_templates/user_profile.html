@@ -1,0 +1,123 @@
+{% extends "profile_templates/base.html" %}
+
+ {% block styles %}
+    {% load static %}
+
+     <style type="text/css">
+     	body {
+     		background-image: url("{% static 'profile_static/images/back2.jpg' %}");
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+
+
+     	}
+
+      #div1 {
+        height: 600px;
+        width:500px;
+        background-color: white;
+        border: 2px solid pink;
+        border-radius: 25px;
+        margin-left: 100px;
+
+      }
+
+      #div2{
+        height: 200px;
+        width: 300px;
+        border: 4px solid black;
+        border-radius: 10px;
+        background-color: white;
+      }
+
+      h1 {
+        color: white;
+        font-family: 'Chelsea Market', cursive;
+      }
+     </style>
+
+    {% endblock %}
+
+   {% block content %}
+      <div id="content" class="p-4 p-md-5 pt-5">
+
+        <div class="container mt-4">
+<br>
+<div class="row">
+
+    <div class="col-md-4">
+        <img src="{{user.image.url}}" class="img-thumbnail" width="100%">
+        <div class="m-4"> </div>
+
+    </div>
+    <div class="col-md-8">
+
+        <div class="card">
+          <div class="card-header bg-warning"> <span class="text-light">{{user.username}}</span>  Details <span class="float-right">testing <a href="{% url 'update_profile' %}" class="btn btn-danger">Update</a></span>
+          </div>
+          <div class="card-body">
+              <table class="table table-bordered table-hover">
+            <tr>
+                <td>Username:</td>
+                <td>{{user.username}}</td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td>{{user.first_name}}</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>{{user.last_name}}</td>
+            </tr>
+            <tr>
+                <td>Date of birth:</td>
+                <td>{{user.dob}}</td>
+            </tr>
+            <tr>
+                <td>Sponsor:</td>
+                <td>{{user.sponser}}</td>
+            </tr>
+
+            <tr>
+                <td>Email:</td>
+                <td>{{user.email}}</td>
+            </tr>
+
+            <tr>
+                <td>Mobile:</td>
+                <td>{{user.phon_no}}</td>
+            </tr>
+
+
+            <tr>
+                <td>Address:</td>
+                <td>{{user.address}}</td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>{{user.state}}</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>{{user.city}}</td>
+            </tr>
+            <tr>
+                <td>Pincode:</td>
+                <td>{{user.zip}}</td>
+            </tr>
+
+             <tr>
+                <td>Registration Date:</td>
+                <td>{{user.date_joined}}</td>
+             </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+</div>
+   {% endblock content %}
